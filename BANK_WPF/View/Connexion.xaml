@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="BANK_WPF.View.Connexion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BANK_WPF.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="White">
+        <Label Content="Login" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+        <Label Content="Mot de Passe" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
+        <Label Content="Connexion" HorizontalAlignment="Left" Margin="80,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.532,0.467"/>
+        <PasswordBox x:Name="passBox" HorizontalAlignment="Left" Margin="99,110,0,0" VerticalAlignment="Top" Width="120" Height="26" TabIndex="2"/>
+        <TextBox x:Name="loginBox" HorizontalAlignment="Left" Height="23" Margin="99,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TabIndex="1"/>
+        <Button x:Name="validerBtn" Content="Valider" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top" Width="75" Click="validerBtn_Click" TabIndex="3"/>
+        <Button x:Name="annulerBtn" Content="Annuler" HorizontalAlignment="Left" Margin="115,153,0,0" VerticalAlignment="Top" Width="75" TabIndex="4"/>
+
+    </Grid>
+</UserControl>

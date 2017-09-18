@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="BANK_WPF.View.Accueil"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BANK_WPF.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="White">
+        <Button x:Name="ajouterBtn" Content="Ajouter un Client" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="114" Click="ajouterBtn_Click"/>
+        <Button x:Name="rechercherBtn" Content="Rechercher un Client" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="114" Click="rechercherBtn_Click"/>
+        <Button x:Name="infosBtn" Content="Infos Banque" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top" Width="114" Click="infosBtn_Click"/>
+        <Button x:Name="docBtn" Content="Documentation" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Width="114" Click="docBtn_Click"/>
+        <Button x:Name="servicesBtn" Content="Services" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="114" Click="servicesBtn_Click"/>
+        <Button Content="Déconnexion" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+    </Grid>
+</UserControl>

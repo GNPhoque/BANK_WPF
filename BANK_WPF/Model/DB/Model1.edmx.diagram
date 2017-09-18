@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f8feadb831b04502a9313501a188a04f" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="BankAppModel.BANQUES" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="BankAppModel.CLIENTS" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="BankAppModel.COMPTE" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="BankAppModel.OPERATIONS" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="BankAppModel.TYPECOMPTE" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="BankAppModel.USERS" Width="1.5" PointX="5.25" PointY="5" />
+        <AssociationConnector Association="BankAppModel.FK_USERS" />
+        <AssociationConnector Association="BankAppModel.FK_COMPTE1" />
+        <AssociationConnector Association="BankAppModel.FK_COMPTE2" />
+        <AssociationConnector Association="BankAppModel.BANQUE_CLIENT" />
+        <AssociationConnector Association="BankAppModel.CLIENT_COMPTE" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

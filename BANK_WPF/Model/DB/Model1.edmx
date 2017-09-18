@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BankAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BANQUE_CLIENT">
+          <Key>
+            <PropertyRef Name="ID_BANQUE" />
+          </Key>
+          <Property Name="ID_BANQUE" Type="int" Nullable="false" />
+          <Property Name="ID_CLIENT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BANQUES">
+          <Key>
+            <PropertyRef Name="ID_BANQUE" />
+          </Key>
+          <Property Name="ID_BANQUE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOM_BANQUE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ADRESSE_BANQUE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TELEPHONE_BANQUE" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLIENT_COMPTE">
+          <Key>
+            <PropertyRef Name="NUMERO_COMPTE" />
+          </Key>
+          <Property Name="NUMERO_COMPTE" Type="int" Nullable="false" />
+          <Property Name="ID_CLIENT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLIENTS">
+          <Key>
+            <PropertyRef Name="ID_CLIENT" />
+          </Key>
+          <Property Name="ID_CLIENT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOM_CLIENT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRENOM_CLIENT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MAIL_CLIENT" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TELEPHONE_CLIENT" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="DATE_NAISS_CLIENT" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMPTE">
+          <Key>
+            <PropertyRef Name="NUMERO_COMPTE" />
+          </Key>
+          <Property Name="NUMERO_COMPTE" Type="int" Nullable="false" />
+          <Property Name="SOLDE" Type="float" Nullable="false" />
+          <Property Name="ID_TYPE_COMPTE" Type="int" Nullable="false" />
+          <Property Name="ID_OPERATION" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OPERATIONS">
+          <Key>
+            <PropertyRef Name="ID_OPERATION" />
+          </Key>
+          <Property Name="ID_OPERATION" Type="int" Nullable="false" />
+          <Property Name="TYPE_OPERATION" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DATE" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TYPECOMPTE">
+          <Key>
+            <PropertyRef Name="ID_TYPE_COMPTE" />
+          </Key>
+          <Property Name="ID_TYPE_COMPTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOM_TYPE_COMPTE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TAUX_INTERET" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="LOGIN" />
+          </Key>
+          <Property Name="LOGIN" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NOM_USER" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRENOM_USER" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MAIL_USER" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TELEPHONE_USER" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_BANQUE" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BANQUE_CLIENT1">
+          <End Role="BANQUES" Type="Self.BANQUES" Multiplicity="1" />
+          <End Role="BANQUE_CLIENT" Type="Self.BANQUE_CLIENT" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BANQUES">
+              <PropertyRef Name="ID_BANQUE" />
+            </Principal>
+            <Dependent Role="BANQUE_CLIENT">
+              <PropertyRef Name="ID_BANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BANQUE_CLIENT2">
+          <End Role="CLIENTS" Type="Self.CLIENTS" Multiplicity="1" />
+          <End Role="BANQUE_CLIENT" Type="Self.BANQUE_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTS">
+              <PropertyRef Name="ID_CLIENT" />
+            </Principal>
+            <Dependent Role="BANQUE_CLIENT">
+              <PropertyRef Name="ID_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENT_COMPTE1">
+          <End Role="COMPTE" Type="Self.COMPTE" Multiplicity="1" />
+          <End Role="CLIENT_COMPTE" Type="Self.CLIENT_COMPTE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="COMPTE">
+              <PropertyRef Name="NUMERO_COMPTE" />
+            </Principal>
+            <Dependent Role="CLIENT_COMPTE">
+              <PropertyRef Name="NUMERO_COMPTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENT_COMPTE2">
+          <End Role="CLIENTS" Type="Self.CLIENTS" Multiplicity="1" />
+          <End Role="CLIENT_COMPTE" Type="Self.CLIENT_COMPTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTS">
+              <PropertyRef Name="ID_CLIENT" />
+            </Principal>
+            <Dependent Role="CLIENT_COMPTE">
+              <PropertyRef Name="ID_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPTE1">
+          <End Role="TYPECOMPTE" Type="Self.TYPECOMPTE" Multiplicity="1" />
+          <End Role="COMPTE" Type="Self.COMPTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPECOMPTE">
+              <PropertyRef Name="ID_TYPE_COMPTE" />
+            </Principal>
+            <Dependent Role="COMPTE">
+              <PropertyRef Name="ID_TYPE_COMPTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPTE2">
+          <End Role="OPERATIONS" Type="Self.OPERATIONS" Multiplicity="1" />
+          <End Role="COMPTE" Type="Self.COMPTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERATIONS">
+              <PropertyRef Name="ID_OPERATION" />
+            </Principal>
+            <Dependent Role="COMPTE">
+              <PropertyRef Name="ID_OPERATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USERS">
+          <End Role="BANQUES" Type="Self.BANQUES" Multiplicity="1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BANQUES">
+              <PropertyRef Name="ID_BANQUE" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="ID_BANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BankAppModelStoreContainer">
+          <EntitySet Name="BANQUE_CLIENT" EntityType="Self.BANQUE_CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BANQUES" EntityType="Self.BANQUES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENT_COMPTE" EntityType="Self.CLIENT_COMPTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTS" EntityType="Self.CLIENTS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPTE" EntityType="Self.COMPTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OPERATIONS" EntityType="Self.OPERATIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TYPECOMPTE" EntityType="Self.TYPECOMPTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BANQUE_CLIENT1" Association="Self.FK_BANQUE_CLIENT1">
+            <End Role="BANQUES" EntitySet="BANQUES" />
+            <End Role="BANQUE_CLIENT" EntitySet="BANQUE_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BANQUE_CLIENT2" Association="Self.FK_BANQUE_CLIENT2">
+            <End Role="CLIENTS" EntitySet="CLIENTS" />
+            <End Role="BANQUE_CLIENT" EntitySet="BANQUE_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENT_COMPTE1" Association="Self.FK_CLIENT_COMPTE1">
+            <End Role="COMPTE" EntitySet="COMPTE" />
+            <End Role="CLIENT_COMPTE" EntitySet="CLIENT_COMPTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENT_COMPTE2" Association="Self.FK_CLIENT_COMPTE2">
+            <End Role="CLIENTS" EntitySet="CLIENTS" />
+            <End Role="CLIENT_COMPTE" EntitySet="CLIENT_COMPTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPTE1" Association="Self.FK_COMPTE1">
+            <End Role="TYPECOMPTE" EntitySet="TYPECOMPTE" />
+            <End Role="COMPTE" EntitySet="COMPTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPTE2" Association="Self.FK_COMPTE2">
+            <End Role="OPERATIONS" EntitySet="OPERATIONS" />
+            <End Role="COMPTE" EntitySet="COMPTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USERS" Association="Self.FK_USERS">
+            <End Role="BANQUES" EntitySet="BANQUES" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BankAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BankAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BANQUES" EntityType="BankAppModel.BANQUES" />
+          <EntitySet Name="CLIENTS" EntityType="BankAppModel.CLIENTS" />
+          <EntitySet Name="COMPTE" EntityType="BankAppModel.COMPTE" />
+          <EntitySet Name="OPERATIONS" EntityType="BankAppModel.OPERATIONS" />
+          <EntitySet Name="TYPECOMPTE" EntityType="BankAppModel.TYPECOMPTE" />
+          <EntitySet Name="USERS" EntityType="BankAppModel.USERS" />
+          <AssociationSet Name="FK_USERS" Association="BankAppModel.FK_USERS">
+            <End Role="BANQUES" EntitySet="BANQUES" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPTE1" Association="BankAppModel.FK_COMPTE1">
+            <End Role="TYPECOMPTE" EntitySet="TYPECOMPTE" />
+            <End Role="COMPTE" EntitySet="COMPTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMPTE2" Association="BankAppModel.FK_COMPTE2">
+            <End Role="OPERATIONS" EntitySet="OPERATIONS" />
+            <End Role="COMPTE" EntitySet="COMPTE" />
+          </AssociationSet>
+          <AssociationSet Name="BANQUE_CLIENT" Association="BankAppModel.BANQUE_CLIENT">
+            <End Role="BANQUES" EntitySet="BANQUES" />
+            <End Role="CLIENTS" EntitySet="CLIENTS" />
+          </AssociationSet>
+          <AssociationSet Name="CLIENT_COMPTE" Association="BankAppModel.CLIENT_COMPTE">
+            <End Role="COMPTE" EntitySet="COMPTE" />
+            <End Role="CLIENTS" EntitySet="CLIENTS" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BANQUES">
+          <Key>
+            <PropertyRef Name="ID_BANQUE" />
+          </Key>
+          <Property Name="ID_BANQUE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOM_BANQUE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADRESSE_BANQUE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE_BANQUE" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="USERS" Relationship="BankAppModel.FK_USERS" FromRole="BANQUES" ToRole="USERS" />
+          <NavigationProperty Name="CLIENTS" Relationship="BankAppModel.BANQUE_CLIENT" FromRole="BANQUES" ToRole="CLIENTS" />
+        </EntityType>
+        <EntityType Name="CLIENTS">
+          <Key>
+            <PropertyRef Name="ID_CLIENT" />
+          </Key>
+          <Property Name="ID_CLIENT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOM_CLIENT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRENOM_CLIENT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MAIL_CLIENT" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE_CLIENT" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DATE_NAISS_CLIENT" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="BANQUES" Relationship="BankAppModel.BANQUE_CLIENT" FromRole="CLIENTS" ToRole="BANQUES" />
+          <NavigationProperty Name="COMPTE" Relationship="BankAppModel.CLIENT_COMPTE" FromRole="CLIENTS" ToRole="COMPTE" />
+        </EntityType>
+        <EntityType Name="COMPTE">
+          <Key>
+            <PropertyRef Name="NUMERO_COMPTE" />
+          </Key>
+          <Property Name="NUMERO_COMPTE" Type="Int32" Nullable="false" />
+          <Property Name="SOLDE" Type="Double" Nullable="false" />
+          <Property Name="ID_TYPE_COMPTE" Type="Int32" Nullable="false" />
+          <Property Name="ID_OPERATION" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TYPECOMPTE" Relationship="BankAppModel.FK_COMPTE1" FromRole="COMPTE" ToRole="TYPECOMPTE" />
+          <NavigationProperty Name="OPERATIONS" Relationship="BankAppModel.FK_COMPTE2" FromRole="COMPTE" ToRole="OPERATIONS" />
+          <NavigationProperty Name="CLIENTS" Relationship="BankAppModel.CLIENT_COMPTE" FromRole="COMPTE" ToRole="CLIENTS" />
+        </EntityType>
+        <EntityType Name="OPERATIONS">
+          <Key>
+            <PropertyRef Name="ID_OPERATION" />
+          </Key>
+          <Property Name="ID_OPERATION" Type="Int32" Nullable="false" />
+          <Property Name="TYPE_OPERATION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="COMPTE" Relationship="BankAppModel.FK_COMPTE2" FromRole="OPERATIONS" ToRole="COMPTE" />
+        </EntityType>
+        <EntityType Name="TYPECOMPTE">
+          <Key>
+            <PropertyRef Name="ID_TYPE_COMPTE" />
+          </Key>
+          <Property Name="ID_TYPE_COMPTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOM_TYPE_COMPTE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TAUX_INTERET" Type="Double" Nullable="false" />
+          <NavigationProperty Name="COMPTE" Relationship="BankAppModel.FK_COMPTE1" FromRole="TYPECOMPTE" ToRole="COMPTE" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="LOGIN" />
+          </Key>
+          <Property Name="LOGIN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NOM_USER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PRENOM_USER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MAIL_USER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE_USER" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ID_BANQUE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BANQUES" Relationship="BankAppModel.FK_USERS" FromRole="USERS" ToRole="BANQUES" />
+        </EntityType>
+        <Association Name="FK_USERS">
+          <End Type="BankAppModel.BANQUES" Role="BANQUES" Multiplicity="1" />
+          <End Type="BankAppModel.USERS" Role="USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BANQUES">
+              <PropertyRef Name="ID_BANQUE" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="ID_BANQUE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPTE1">
+          <End Type="BankAppModel.TYPECOMPTE" Role="TYPECOMPTE" Multiplicity="1" />
+          <End Type="BankAppModel.COMPTE" Role="COMPTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPECOMPTE">
+              <PropertyRef Name="ID_TYPE_COMPTE" />
+            </Principal>
+            <Dependent Role="COMPTE">
+              <PropertyRef Name="ID_TYPE_COMPTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMPTE2">
+          <End Type="BankAppModel.OPERATIONS" Role="OPERATIONS" Multiplicity="1" />
+          <End Type="BankAppModel.COMPTE" Role="COMPTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OPERATIONS">
+              <PropertyRef Name="ID_OPERATION" />
+            </Principal>
+            <Dependent Role="COMPTE">
+              <PropertyRef Name="ID_OPERATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BANQUE_CLIENT">
+          <End Type="BankAppModel.BANQUES" Role="BANQUES" Multiplicity="*" />
+          <End Type="BankAppModel.CLIENTS" Role="CLIENTS" Multiplicity="0..1" />
+        </Association>
+        <Association Name="CLIENT_COMPTE">
+          <End Type="BankAppModel.COMPTE" Role="COMPTE" Multiplicity="*" />
+          <End Type="BankAppModel.CLIENTS" Role="CLIENTS" Multiplicity="0..1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BankAppModelStoreContainer" CdmEntityContainer="BankAppEntities">
+          <EntitySetMapping Name="BANQUES">
+            <EntityTypeMapping TypeName="BankAppModel.BANQUES">
+              <MappingFragment StoreEntitySet="BANQUES">
+                <ScalarProperty Name="TELEPHONE_BANQUE" ColumnName="TELEPHONE_BANQUE" />
+                <ScalarProperty Name="ADRESSE_BANQUE" ColumnName="ADRESSE_BANQUE" />
+                <ScalarProperty Name="NOM_BANQUE" ColumnName="NOM_BANQUE" />
+                <ScalarProperty Name="ID_BANQUE" ColumnName="ID_BANQUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTS">
+            <EntityTypeMapping TypeName="BankAppModel.CLIENTS">
+              <MappingFragment StoreEntitySet="CLIENTS">
+                <ScalarProperty Name="DATE_NAISS_CLIENT" ColumnName="DATE_NAISS_CLIENT" />
+                <ScalarProperty Name="TELEPHONE_CLIENT" ColumnName="TELEPHONE_CLIENT" />
+                <ScalarProperty Name="MAIL_CLIENT" ColumnName="MAIL_CLIENT" />
+                <ScalarProperty Name="PRENOM_CLIENT" ColumnName="PRENOM_CLIENT" />
+                <ScalarProperty Name="NOM_CLIENT" ColumnName="NOM_CLIENT" />
+                <ScalarProperty Name="ID_CLIENT" ColumnName="ID_CLIENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPTE">
+            <EntityTypeMapping TypeName="BankAppModel.COMPTE">
+              <MappingFragment StoreEntitySet="COMPTE">
+                <ScalarProperty Name="ID_OPERATION" ColumnName="ID_OPERATION" />
+                <ScalarProperty Name="ID_TYPE_COMPTE" ColumnName="ID_TYPE_COMPTE" />
+                <ScalarProperty Name="SOLDE" ColumnName="SOLDE" />
+                <ScalarProperty Name="NUMERO_COMPTE" ColumnName="NUMERO_COMPTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OPERATIONS">
+            <EntityTypeMapping TypeName="BankAppModel.OPERATIONS">
+              <MappingFragment StoreEntitySet="OPERATIONS">
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="TYPE_OPERATION" ColumnName="TYPE_OPERATION" />
+                <ScalarProperty Name="ID_OPERATION" ColumnName="ID_OPERATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPECOMPTE">
+            <EntityTypeMapping TypeName="BankAppModel.TYPECOMPTE">
+              <MappingFragment StoreEntitySet="TYPECOMPTE">
+                <ScalarProperty Name="TAUX_INTERET" ColumnName="TAUX_INTERET" />
+                <ScalarProperty Name="NOM_TYPE_COMPTE" ColumnName="NOM_TYPE_COMPTE" />
+                <ScalarProperty Name="ID_TYPE_COMPTE" ColumnName="ID_TYPE_COMPTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="BankAppModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="ID_BANQUE" ColumnName="ID_BANQUE" />
+                <ScalarProperty Name="TELEPHONE_USER" ColumnName="TELEPHONE_USER" />
+                <ScalarProperty Name="MAIL_USER" ColumnName="MAIL_USER" />
+                <ScalarProperty Name="PRENOM_USER" ColumnName="PRENOM_USER" />
+                <ScalarProperty Name="NOM_USER" ColumnName="NOM_USER" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BANQUE_CLIENT" TypeName="BankAppModel.BANQUE_CLIENT" StoreEntitySet="BANQUE_CLIENT">
+            <EndProperty Name="CLIENTS">
+              <ScalarProperty Name="ID_CLIENT" ColumnName="ID_CLIENT" />
+            </EndProperty>
+            <EndProperty Name="BANQUES">
+              <ScalarProperty Name="ID_BANQUE" ColumnName="ID_BANQUE" />
+            </EndProperty>
+            <Condition ColumnName="ID_CLIENT" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CLIENT_COMPTE" TypeName="BankAppModel.CLIENT_COMPTE" StoreEntitySet="CLIENT_COMPTE">
+            <EndProperty Name="CLIENTS">
+              <ScalarProperty Name="ID_CLIENT" ColumnName="ID_CLIENT" />
+            </EndProperty>
+            <EndProperty Name="COMPTE">
+              <ScalarProperty Name="NUMERO_COMPTE" ColumnName="NUMERO_COMPTE" />
+            </EndProperty>
+            <Condition ColumnName="ID_CLIENT" IsNull="false" />
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
